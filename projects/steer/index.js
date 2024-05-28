@@ -142,7 +142,7 @@ const query = `{vaults(first: 1000, where: {totalLPTokensIssued_not: "0", lastSn
 
 supportedChains.forEach(chain => {
   module.exports[chain.identifier] = {
-    tvl: async (_, _b, _cb, { api, }) => {
+    tvl: async (api) => {
       const data = await cachedGraphQuery('steer/' + chain.identifier, chain.subgraphEndpoint, query,)
 
       const vaults = data.vaults.map((vault) => vault.id)
@@ -169,6 +169,7 @@ module.exports.arbitrum.staking = stakings(
     "0xaCdC6fC8F84fbA26f065489a7bf5837D7CDf546F",
     "0xff46e1B60dD9De89Aa04902D5c3c5ca01f8576A4",
     "0x1E6a358a1721e0D2B84f39FD328FC03A1b6e863B"
+
   ], 
   "0x1C43D05be7E5b54D506e3DdB6f0305e8A66CD04e",
   "arbitrum"
