@@ -1,4 +1,3 @@
-const ADDRESSES = require('../helper/coreAssets.json')
 const sdk = require("@defillama/sdk");
 const { cachedGraphQuery } = require('../helper/cache')
 const { stakings } = require("../helper/staking");
@@ -405,8 +404,8 @@ function addBalances(api, balances, token0s, token1s, [balance0, balance1], fall
 
 function getV4MetadataToken(metadata, index) {
   if (typeof metadata !== 'string' || !/^0x[\da-f]{128,}$/i.test(metadata)) return
-  const token = `0x${metadata.slice(2 + index * 64 + 24, 2 + (index + 1) * 64)}`
-  return token === ADDRESSES.null ? undefined : token
+  // V4 uses the zero address for native currency; it is valid token metadata.
+  return `0x${metadata.slice(2 + index * 64 + 24, 2 + (index + 1) * 64)}`
 }
 
 supportedChains.forEach(chain => {
